@@ -3,8 +3,6 @@ package controller;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ColorModel;
-
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -25,7 +23,7 @@ public class Controller {
 		indexButtonPressed = 0;
 		contadorMov = 0;
 		darFuncionalidadToBotones();
-		comprobarColoresPosicionados();
+		//comprobarColoresPosicionados();
 	}
 
 	private void darFuncionalidadToBotones() {
@@ -39,7 +37,7 @@ public class Controller {
 		
 		interfazUsuario.getButtonComprobrar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				comprobarColoresPosicionados();
+				checkAciertos();
 				if(juegoCompleto()) {
 					JOptionPane.showMessageDialog(null, "YOU WON!!! \nIn "+ contadorMov + " movements");
 				}
@@ -87,17 +85,16 @@ public class Controller {
 		return flag;
 	}
 	
-	private void comprobarColoresPosicionados() {
+	private void checkAciertos() {
+		int aciertos = 0;
 		int index = 0;
 		for(JButton button : interfazUsuario.getButtonsUsuario()) {
 			if(button.getBackground().equals(juegoBotones.getListaColoresGuess().get(index))) {
-				interfazUsuario.getButtonsGuessUsuario().get(index).setBackground(Color.green);
-			}
-			else {
-				interfazUsuario.getButtonsGuessUsuario().get(index).setBackground(Color.RED);
+				aciertos ++;
 			}
 			index ++;
 		}
+		interfazUsuario.getLabelGuesses().setText(aciertos + "");
 	}
 	
 }
